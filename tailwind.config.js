@@ -1,21 +1,15 @@
+// tailwind.config.js
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
-    important: true,
-    theme: {
+  theme: {
+    extend: {
       fontFamily: {
-        display: ['Gilroy', 'sans-serif'],
-        body: ['Graphik', 'sans-serif'],
-      },
-      extend: {
-        colors: {
-          cyan: '#9cdbff',
-        },
-        margin: {
-          '96': '24rem',
-          '128': '32rem',
-        },
+        sans: [
+          'Lato',
+        //   ...defaultTheme.fontFamily.sans,
+        ]
       }
-    },
-    variants: {
-      opacity: ['responsive', 'hover']
     }
   }
+}

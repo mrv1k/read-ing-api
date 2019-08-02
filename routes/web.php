@@ -11,14 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Auth::routes();
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', 'HomeController@index')->name('home');
+
+    Route::resource('books', 'BooksController')->except(['destroy']);
+    Route::get('books/{book}/sessions', 'ReadingSessionController@index')->name('books.sessions.index');
+    Route::get('books/{book}/sessions/create', 'ReadingSessionController@create')->name('books.sessions.create');
+
+    Route::post('books/{book}/sessions', 'ReadingSessionController@store')->name('books.sessions.store');
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-

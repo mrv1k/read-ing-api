@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Reading MVP') }}</title>
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
@@ -19,9 +19,14 @@
                 <div class="flex items-center justify-center">
                     <div class="ml-6">
                         <a href="{{ url('/') }}" class="text-lg font-semibold text-gray-100 no-underline">
-                            {{ config('app.name', 'Laravel') }}
+                            {{ config('app.name', 'Reading Stats') }}
                         </a>
                     </div>
+                    <div class="ml-12">
+                            <a href="{{ route('books.index') }}" class="font-semibold text-gray-100 no-underline">
+                                Books
+                            </a>
+                        </div>
                     <div class="flex-1 text-right">
                         @guest
                             <a class="no-underline hover:underline text-gray-300 text-sm p-3" href="{{ route('login') }}">{{ __('Login') }}</a>
