@@ -16,13 +16,10 @@ require('laravel-mix-purgecss');
 
 mix.js('resources/js/app.js', 'public/js')
    .postCss('resources/css/app.css', 'public/css')
-   .tailwind('./tailwind.config.js')
-   .purgeCss()
-   .browserSync({
-    proxy: 'reading-mvp.test',
-    notify: false,
-});
+   .tailwind('./tailwind.config.js');
 
 if (mix.inProduction()) {
-  mix.version();
+  mix
+   .version()
+   .purgeCss();
 }
