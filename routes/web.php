@@ -15,7 +15,6 @@
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
-    // Route::get('/', 'HomeController@index')->name('home');
     Route::resource('books', 'BooksController')->except(['destroy']);
 
     Route::get('books/{book}/sessions', 'ReadingSessionController@index')->name('books.sessions.index');
@@ -24,3 +23,4 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::redirect('/', '/home');
