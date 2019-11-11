@@ -17,7 +17,7 @@ class ReadingSession extends Model
 
     public function getPercentageReadNumberAttribute()
     {
-        return ceil(($this->end / $this->book->pages) * 100);;
+        return ceil(($this->end / $this->book->pages) * 100);
     }
 
     public function getPercentageReadAttribute()

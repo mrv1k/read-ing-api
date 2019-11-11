@@ -10,8 +10,18 @@ class Lecture extends Model
 
     protected $casts = ['start' => 'integer', 'end' => 'integer'];
 
-    public function livres()
+    public function livre()
     {
         return $this->belongsTo(Livre::class);
+    }
+
+    public function getPagesReadAttribute()
+    {
+        return $this->end - $this->start;
+    }
+
+    public function getPercentageReadAttribute()
+    {
+        return ceil(($this->end / $this->livre->pages) * 100);
     }
 }
