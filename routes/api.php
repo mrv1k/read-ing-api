@@ -22,3 +22,11 @@ Route::post('login', 'AuthController@login');
 
 Route::apiResource('livres', 'LivreController');
 Route::post('livres/{livre}/lectures', 'LectureController@store');
+
+Route::apiResource('books', 'BookController');
+
+// Route::get('books', 'BookController@index');
+// Route::post('books/{book}', 'BookController@store');
+// Route::get('books/{book}', 'BookController@show');
+// Route::put('books/{book}', 'BookController@update');
+// Route::delete('books/{book}', 'BookController@destroy');

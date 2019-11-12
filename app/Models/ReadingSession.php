@@ -8,7 +8,10 @@ class ReadingSession extends Model
 {
     protected $fillable = ['book_id', 'start', 'end'];
 
-    protected $casts = ['start' => 'integer', 'end' => 'integer'];
+    protected $casts = [
+        'start' => 'integer',
+        'end' => 'integer',
+    ];
 
     public function getPagesReadAttribute()
     {
