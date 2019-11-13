@@ -23,7 +23,7 @@ Route::post('login', 'AuthController@login');
 Route::apiResource('livres', 'LivreController');
 Route::post('livres/{livre}/lectures', 'LectureController@store');
 
-Route::apiResource('books', 'BookController');
+Route::apiResource('books', 'Api\BookController');
 
 // Route::get('books', 'BookController@index');
 // Route::post('books/{book}', 'BookController@store');

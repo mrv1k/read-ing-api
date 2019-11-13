@@ -16,7 +16,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        // return BookResource::collection();
+        return BookResource::collection(Book::with('readingSessions')->get());
     }
 
     /**
@@ -33,8 +33,7 @@ class BookController extends Controller
             'user_id' => auth()->user()->id,
         ]);
 
-        // TODO: resource
-        return $book;
+        return new BookResource($book);
     }
 
     /**
@@ -68,6 +67,8 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+
+        return response()->json(null, 204);
     }
 }
