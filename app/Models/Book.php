@@ -15,13 +15,14 @@ class Book extends Model
     protected static function boot()
     {
         parent::boot();
-        static::addGlobalScope('userBooks', function ($query) {
-            return $query->where('user_id', auth()->id());
-        });
+        // TODO: Investigate =_=
+        // static::addGlobalScope('userBooks', function ($query) {
+        //     return $query->where('user_id', auth()->id());
+        // });
 
-        static::creating(function($book) {
-            $book->user_id = auth()->id();
-        });
+        // static::creating(function ($book) {
+        //     $book->user_id = auth()->id();
+        // });
     }
 
     public function user()
