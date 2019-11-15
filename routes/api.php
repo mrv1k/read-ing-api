@@ -24,6 +24,7 @@ Route::apiResource('livres', 'LivreController');
 Route::post('livres/{livre}/lectures', 'LectureController@store');
 
 Route::apiResource('books', 'Api\BookController');
+Route::apiResource('books/{book}/sessions', 'Api\ReadingSessionsController');
 
 // Route::get('books', 'BookController@index');
 // Route::post('books/{book}', 'BookController@store');

@@ -18,15 +18,13 @@ class ReadingSession extends Model
         return $this->end - $this->start;
     }
 
-    public function getPercentageReadNumberAttribute()
+    public function getBookReadAttribute()
     {
-        return ceil(($this->end / $this->book->pages) * 100);
+        $num = ceil(($this->end / $this->book->pages) * 100);
+
+        return $num . '%';
     }
 
-    public function getPercentageReadAttribute()
-    {
-        return $this->percentage_read_number . '%';
-    }
 
     public function getReadDateAttribute()
     {
