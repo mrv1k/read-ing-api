@@ -19,6 +19,7 @@ class BookResource extends JsonResource
             'name' => $this->name,
             'pages' => $this->pages,
             'user_id' => $this->user_id,
+            'reading_sessions' => $this->readingSessions,
             // 'book_progress' => $this->lectures->sum(),
             'created_at' => (string) $this->created_at,
             'updated_at' => (string) $this->updated_at,
