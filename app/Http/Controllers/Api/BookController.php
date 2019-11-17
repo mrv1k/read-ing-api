@@ -28,7 +28,7 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $book = Book::create([
-            'name' => $request->title,
+            'title' => $request->title,
             'pages' => $request->pages,
             'user_id' => auth()->user()->id,
         ]);
@@ -60,7 +60,7 @@ class BookController extends Controller
             return response()->json(['error' => 'You can only edit your own books'], 403);
         }
 
-        $book->update($request->only(['name', 'pages']));
+        $book->update($request->only(['title', 'pages']));
 
         return new BookResource($book);
     }

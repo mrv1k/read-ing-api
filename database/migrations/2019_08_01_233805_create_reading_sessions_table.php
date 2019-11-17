@@ -15,10 +15,10 @@ class CreateReadingSessionsTable extends Migration
     {
         Schema::create('reading_sessions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('book_id');
-            $table->foreign('book_id')->references('id')->on('books');
             $table->unsignedInteger('start');
             $table->unsignedInteger('end');
+            $table->unsignedBigInteger('book_id');
+            $table->foreign('book_id')->references('id')->on('books');
             $table->timestamps();
         });
     }

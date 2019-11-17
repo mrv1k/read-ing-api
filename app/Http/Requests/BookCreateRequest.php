@@ -24,7 +24,7 @@ class BookCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'title' => 'required',
             'pages' => 'required|integer'
         ];
     }

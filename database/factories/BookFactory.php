@@ -7,8 +7,8 @@ use Faker\Generator as Faker;
 
 $factory->define(Book::class, function (Faker $faker) {
     return [
-        'name' => $faker->word,
-        'pages' => (int) $faker->biasedNumberBetween(1, 101),
+        'title' => $faker->word,
+        'pages' => (int) $faker->biasedNumberBetween(99, 322),
         'user_id' => factory(App\Models\User::class),
     ];
 });
