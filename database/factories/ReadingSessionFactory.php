@@ -5,7 +5,7 @@
 use App\Models\ReadingSession;
 use Faker\Generator as Faker;
 
-$factory->define(ReadingSession::class, function (Faker $faker) {
+$factory->define(ReadingSession::class, function (Faker $faker, callable $attributes) {
     return [
         'start' => 1,
         'end' => 26,
