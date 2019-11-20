@@ -17,16 +17,14 @@ class BookTest extends TestCase
 
         $this->actingAs($user);
 
-        $response = $this->postJson('api/books', ['title' => 'DTW', 'pages' => 100, 'user_id' => auth()->user()->id]);
+        $payload = ['title' => 'DTW', 'pages' => 100, 'user_id' => auth()->user()->id];
+
+        $response = $this->postJson('api/books', $payload);
 
         $response->assertStatus(201);
 
         $response->assertJson([
-            'data' => [
-                'title' => 'DTW',
-                'pages' => 100,
-                'user_id' => auth()->user()->id,
-            ]
+            'data' => $payload
         ]);
     }
 }
