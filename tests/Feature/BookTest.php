@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Book;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -11,7 +12,10 @@ class BookTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testCanCreateABook()
+    public function testShouldReturnBooksWithReadingSessions()
+    { }
+
+    public function testShouldCreateABook()
     {
         $user = factory(User::class)->create();
 
@@ -27,4 +31,19 @@ class BookTest extends TestCase
             'data' => $payload
         ]);
     }
+
+    public function testShouldFetchABook()
+    {
+        $book = factory(Book::class)->create();
+
+        $response = $this->getJson('api/books/1');
+
+        $response->assertStatus(200);
+    }
+
+    public function testShouldUpdateABook()
+    { }
+
+    public function testShouldDeleteABook()
+    { }
 }
