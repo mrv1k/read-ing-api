@@ -17,11 +17,9 @@ class BookTest extends TestCase
 
     public function testShouldCreateABook()
     {
-        $user = factory(User::class)->create();
+        $john = factory(User::class)->create();
 
-        $this->actingAs($user);
-
-        $payload = ['title' => 'DTW', 'pages' => 100, 'user_id' => auth()->user()->id];
+        $payload = ['title' => 'DTW', 'pages' => 100, 'user_id' => $john->id];
 
         $response = $this->postJson('api/books', $payload);
 
@@ -32,7 +30,7 @@ class BookTest extends TestCase
         ]);
     }
 
-    public function testShouldFetchABook()
+    public function testCreatedBookShouldBeAccessibleViaUrl()
     {
         $book = factory(Book::class)->create();
 
@@ -41,8 +39,48 @@ class BookTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testShouldUpdateABook()
-    { }
+    public function testABookCannotBeUpdatedByAnyoneExceptCreator()
+    {
+        $john = factory(User::class)->create();
+        $this->actingAs($john);
+        $payload = ['title' => 'DTW', 'pages' => 100, 'user_id' => $john->id];
+        $this->postJson('api/books', $payload);
+
+        $jane = factory(User::class)->create();
+        $this->actingAs($jane);
+
+        $response = $this->patchJson('api/books/1', [
+            'title' => 'Jane Book'
+        ]);
+
+        $response->assertStatus(403);
+
+        // $response->assertSessionHasErrors(['error' => 'You can only edit your own books']);
+
+        // $this->patch($thread->path(), [
+        //     'body' => 'derp',
+        // ])->assertSessionHasErrors('title');
+    }
+
+    public function testBookCreatorCanUpdateABook()
+    {
+        $john = factory(User::class)->create();
+        $this->actingAs($john);
+        $payload = ['title' => 'John Book', 'pages' => 100, 'user_id' => $john->id];
+        $this->postJson('api/books', $payload);
+
+        $response = $this->patchJson('api/books/1', [
+            'title' => 'Updated Book'
+        ]);
+
+        $payload['title'] = 'Updated Book';
+
+        $response->assertJson([
+            'data' => $payload
+        ]);
+
+        $response->assertStatus(200);
+    }
 
     public function testShouldDeleteABook()
     { }
