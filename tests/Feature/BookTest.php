@@ -54,6 +54,9 @@ class BookTest extends TestCase
         ]);
 
         $response->assertStatus(403);
+        // assertSessionHasErrors
+        // $response->assertJsonValidationErrors('You can only edit your own books');
+        $response->assertJson(['error' => 'You can only edit your own books']);
 
         // $response->assertSessionHasErrors(['error' => 'You can only edit your own books']);
 
