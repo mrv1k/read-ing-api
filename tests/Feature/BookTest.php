@@ -15,75 +15,60 @@ class BookTest extends TestCase
     public function testShouldReturnBooksWithReadingSessions()
     { }
 
-    public function testShouldCreateABook()
+    public function testAUserCanCreateABook()
     {
         $john = factory(User::class)->create();
 
-        $payload = ['title' => 'DTW', 'pages' => 100, 'user_id' => $john->id];
+        $this->actingAs($john);
+
+        $payload = ['title' => 'DTW', 'pages' => 100, 'user_id' => auth()->user()->id];
 
         $response = $this->postJson('api/books', $payload);
 
         $response->assertStatus(201);
 
-        $response->assertJson([
-            'data' => $payload
-        ]);
+        $response->assertJsonFragment($payload);
     }
 
-    public function testCreatedBookShouldBeAccessibleViaUrl()
+    public function testABookShouldBeRetrievable()
     {
         $book = factory(Book::class)->create();
 
-        $response = $this->getJson('api/books/1');
+        $response = $this->getJson('api/books/' . $book->id);
 
         $response->assertStatus(200);
     }
 
-    public function testABookCannotBeUpdatedByAnyoneExceptCreator()
+    public function testBookCreatorCanUpdateABook()
     {
-        $john = factory(User::class)->create();
-        $this->actingAs($john);
-        $payload = ['title' => 'DTW', 'pages' => 100, 'user_id' => $john->id];
-        $this->postJson('api/books', $payload);
+        $this->actingAs(factory(User::class)->create());
+        $book = factory(Book::class)->create();
+
+        $response = $this->patchJson('api/books/' . $book->id, [
+            'title' => 'Updated'
+        ]);
+
+        $response->assertJsonFragment(['title' => 'Updated']);
+
+        $response->assertStatus(200);
+    }
+
+    public function testNotACreatorCannotUpdateABook()
+    {
+        $this->actingAs(factory(User::class)->create());
+        $johnsBook = factory(Book::class)->create();
 
         $jane = factory(User::class)->create();
         $this->actingAs($jane);
 
         $response = $this->patchJson('api/books/1', [
-            'title' => 'Jane Book'
+            'title' => 'Jane Takeover Title'
         ]);
 
         $response->assertStatus(403);
-        // assertSessionHasErrors
-        // $response->assertJsonValidationErrors('You can only edit your own books');
         $response->assertJson(['error' => 'You can only edit your own books']);
-
-        // $response->assertSessionHasErrors(['error' => 'You can only edit your own books']);
-
-        // $this->patch($thread->path(), [
-        //     'body' => 'derp',
-        // ])->assertSessionHasErrors('title');
     }
 
-    public function testBookCreatorCanUpdateABook()
-    {
-        $john = factory(User::class)->create();
-        $this->actingAs($john);
-        $payload = ['title' => 'John Book', 'pages' => 100, 'user_id' => $john->id];
-        $this->postJson('api/books', $payload);
-
-        $response = $this->patchJson('api/books/1', [
-            'title' => 'Updated Book'
-        ]);
-
-        $payload['title'] = 'Updated Book';
-
-        $response->assertJson([
-            'data' => $payload
-        ]);
-
-        $response->assertStatus(200);
-    }
 
     public function testShouldDeleteABook()
     { }
