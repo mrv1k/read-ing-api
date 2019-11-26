@@ -12,8 +12,15 @@ class BookTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testShouldReturnBooksWithReadingSessions()
-    { }
+    public function testReturnMultipleBooks()
+    {
+        $books = factory(Book::class, 2)->create();
+
+        $response = $this->getJson('api/books');
+
+        $response->assertStatus(200);
+        $response->assertJsonCount(2, 'data');
+    }
 
     public function testAUserCanCreateABook()
     {
