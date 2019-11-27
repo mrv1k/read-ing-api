@@ -78,5 +78,17 @@ class BookTest extends TestCase
 
 
     public function testShouldDeleteABook()
-    { }
+    {
+        $john = factory(User::class)->create();
+        $this->actingAs($john);
+        $book = factory(Book::class)->create();
+
+        $this->getJson('api/books/1')->assertStatus(200);
+
+        $this->deleteJson('api/books/1')->assertStatus(204);
+
+        $this->getJson('api/books/1')
+            ->assertStatus(404)
+            ->assertJson(['error' => 'Resource not found']);
+    }
 }
