@@ -25,9 +25,15 @@ class ReadingSessionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($bookId, Request $request)
     {
-        //
+        $readingSession = ReadingSession::create([
+            'start' => $request->start,
+            'end' => $request->end,
+            'book_id' => $bookId,
+        ]);
+
+        return new ReadingSessionResource($readingSession);
     }
 
     /**
