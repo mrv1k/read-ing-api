@@ -67,6 +67,8 @@ class ReadingSessionsController extends Controller
      */
     public function destroy(ReadingSession $readingSession)
     {
-        //
+        $readingSession->delete();
+
+        return response()->json(null, 204);
     }
 }

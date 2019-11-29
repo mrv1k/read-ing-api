@@ -33,5 +33,8 @@ class ReadingSessionTest extends TestCase
         $john = factory(User::class)->create();
         $this->actingAs($john);
         $readingSession = factory(ReadingSession::class)->create();
+
+        $this->deleteJson('api/books/1/sessions/1')
+            ->assertStatus(204);
     }
 }
