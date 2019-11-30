@@ -44,7 +44,7 @@ class ReadingSessionsController extends Controller
      */
     public function show(ReadingSession $readingSession)
     {
-        //
+        return new ReadingSessionResource($readingSession);
     }
 
     /**
@@ -56,7 +56,13 @@ class ReadingSessionsController extends Controller
      */
     public function update(Request $request, ReadingSession $readingSession)
     {
-        //
+        if ($request->user()->id !== $readingSession->id) {
+            return response()->json(['error' => 'You can only edit your own books'], 403);
+        }
+
+        $readingSession->update($request->only(['start', 'end']));
+
+        return new ReadingSessionResource($readingSession);
     }
 
     /**
