@@ -13,6 +13,19 @@ class ReadingSessionTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function testCanRetrieveAllReadingSectionsForABook()
+    {
+        $book = factory(Book::class)->create();
+
+        $this->postJson('api/books/1/sessions', ['start' => 1, 'end' => 26]);
+        $this->postJson('api/books/1/sessions', ['start' => 26, 'end' => 51]);
+
+        $response = $this->getJson('api/books/1/sessions');
+
+        $response->assertStatus(200);
+        $response->assertJsonCount(2, 'data');
+    }
+
     public function testUserCanCreateAReadingSession()
     {
         $john = factory(User::class)->create();
