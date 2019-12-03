@@ -15,12 +15,10 @@ class ReadingSessionTest extends TestCase
 
     public function testCanRetrieveAllReadingSectionsForABook()
     {
-        $t = factory(ReadingSession::class)->states('finishedBook')->create();
-
         $book = factory(Book::class)->create();
 
-        $this->postJson('api/books/1/sessions', ['start' => 1, 'end' => 26]);
-        $this->postJson('api/books/1/sessions', ['start' => 26, 'end' => 51]);
+        factory(ReadingSession::class)->create(['book_id' => $book->id, 'start' => 1]);
+        factory(ReadingSession::class)->create(['book_id' => $book->id, 'start' => 26]);
 
         $response = $this->getJson('api/books/1/sessions');
 
