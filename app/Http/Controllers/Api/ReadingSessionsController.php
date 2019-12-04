@@ -42,8 +42,9 @@ class ReadingSessionsController extends Controller
      * @param  \App\Models\ReadingSession  $readingSession
      * @return \Illuminate\Http\Response
      */
-    public function show(ReadingSession $readingSession)
+    public function show($bookId, ReadingSession $readingSession)
     {
+        // dd($bookId, $readingSession);
         return new ReadingSessionResource($readingSession);
     }
 

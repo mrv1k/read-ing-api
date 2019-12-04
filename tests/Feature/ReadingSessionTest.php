@@ -28,8 +28,8 @@ class ReadingSessionTest extends TestCase
 
     public function testUserCanCreateAReadingSession()
     {
-        $john = factory(User::class)->create();
-        $this->actingAs($john);
+        $this->actingAs(factory(User::class)->create());
+
         $book = factory(Book::class)->create();
 
         $payload = ['start' => 1, 'end' => 11];
@@ -43,11 +43,23 @@ class ReadingSessionTest extends TestCase
 
     public function testUserCanDeleteAReadingSession()
     {
-        $john = factory(User::class)->create();
-        $this->actingAs($john);
+        $this->actingAs(factory(User::class)->create());
+
         $readingSession = factory(ReadingSession::class)->create();
 
         $this->deleteJson('api/books/1/sessions/1')
             ->assertStatus(204);
+    }
+
+    public function testUserCanRetriveAReadingSession()
+    {
+        $this->actingAs(factory(User::class)->create());
+
+        // $this->withoutExceptionHandling();
+
+        $readingSession = factory(ReadingSession::class)->create();
+
+        $r = $this->getJson('api/books/1/sessions/1');
+        dd($r);
     }
 }

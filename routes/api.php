@@ -23,4 +23,12 @@ Route::post('login', 'AuthController@login');
 // Route::post('livres/{livre}/lectures', 'LectureController@store');
 
 Route::apiResource('books', 'Api\BookController');
+
+// index store show update destroy
+// Route::get('books/{book}/sessions', 'Api\ReadingSessionsController@index');
+// Route::post('books/{book}/sessions', 'Api\ReadingSessionsController@store');
+// Route::get('books/{book}/sessions/{readingSession}', 'Api\ReadingSessionsController@show');
+// Route::patch('books/{book}/sessions/{readingSession}', 'Api\ReadingSessionsController@update');
+// Route::delete('books/{book}/sessions/{readingSession}', 'Api\ReadingSessionsController@destroy');
+
 Route::apiResource('books/{book}/sessions', 'Api\ReadingSessionsController');
