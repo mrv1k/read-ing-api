@@ -59,7 +59,8 @@ class ReadingSessionTest extends TestCase
 
         $readingSession = factory(ReadingSession::class)->create();
 
-        $r = $this->getJson('api/books/1/sessions/1');
-        dd($r);
+        $response = $this->getJson('api/books/1/sessions/1');
+
+        $response->assertStatus(200);
     }
 }

@@ -33,6 +33,8 @@ class ReadingSessionsController extends Controller
             'book_id' => $bookId,
         ]);
 
+        dd($readingSession);
+
         return new ReadingSessionResource($readingSession);
     }
 
@@ -42,10 +44,11 @@ class ReadingSessionsController extends Controller
      * @param  \App\Models\ReadingSession  $readingSession
      * @return \Illuminate\Http\Response
      */
-    public function show($bookId, ReadingSession $readingSession)
+    public function show($bookId, $readingSessionId)
     {
-        // dd($bookId, $readingSession);
-        return new ReadingSessionResource($readingSession);
+        // TODO: Refactor to back to use laravel typecast fetching
+        $t = ReadingSession::findOrFail($readingSessionId);
+        return new ReadingSessionResource($t);
     }
 
     /**

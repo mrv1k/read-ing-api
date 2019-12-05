@@ -18,7 +18,7 @@ class ReadingSession extends Model
         return $this->end - $this->start;
     }
 
-    public function getBookReadAttribute()
+    public function getBookReadAttribute($value)
     {
         $num = ceil(($this->end / $this->book->pages) * 100);
 
