@@ -20,9 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('register', 'AuthController@register');
 Route::post('login', 'AuthController@login');
 
-// Route::post('livres/{livre}/lectures', 'LectureController@store');
-
 Route::apiResource('books', 'Api\BookController');
+Route::apiResource('books.sessions', 'Api\ReadingSessionsController');
+// Route::apiResource('books/{book}/sessions', 'Api\ReadingSessionsController');
 
 // index store show update destroy
 // Route::get('books/{book}/sessions', 'Api\ReadingSessionsController@index');
@@ -30,5 +30,3 @@ Route::apiResource('books', 'Api\BookController');
 // Route::get('books/{book}/sessions/{readingSession}', 'Api\ReadingSessionsController@show');
 // Route::patch('books/{book}/sessions/{readingSession}', 'Api\ReadingSessionsController@update');
 // Route::delete('books/{book}/sessions/{readingSession}', 'Api\ReadingSessionsController@destroy');
-
-Route::apiResource('books/{book}/sessions', 'Api\ReadingSessionsController');

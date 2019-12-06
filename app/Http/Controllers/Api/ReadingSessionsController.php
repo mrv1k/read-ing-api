@@ -33,8 +33,6 @@ class ReadingSessionsController extends Controller
             'book_id' => $bookId,
         ]);
 
-        dd($readingSession);
-
         return new ReadingSessionResource($readingSession);
     }
 
