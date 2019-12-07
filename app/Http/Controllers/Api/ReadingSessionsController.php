@@ -56,11 +56,9 @@ class ReadingSessionsController extends Controller
      * @param  \App\Models\ReadingSession  $readingSession
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ReadingSession $readingSession)
+    public function update(Request $request, $bookId, $readingSessionId)
     {
-        if ($request->user()->id !== $readingSession->id) {
-            return response()->json(['error' => 'You can only edit your own books'], 403);
-        }
+        $readingSession = ReadingSession::findOrFail($readingSessionId);
 
         $readingSession->update($request->only(['start', 'end']));
 

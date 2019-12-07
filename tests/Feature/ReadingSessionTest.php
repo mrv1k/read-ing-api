@@ -51,7 +51,7 @@ class ReadingSessionTest extends TestCase
             ->assertStatus(204);
     }
 
-    public function testUserCanRetriveAReadingSession()
+    public function testUserCanRetriveASingleReadingSession()
     {
         $this->actingAs(factory(User::class)->create());
 
@@ -62,5 +62,20 @@ class ReadingSessionTest extends TestCase
         $response = $this->getJson('api/books/1/sessions/1');
 
         $response->assertStatus(200);
+    }
+
+    public function testUserCanUpdateAReadingSession()
+    {
+        $this->actingAs(factory(User::class)->create());
+
+        $this->withoutExceptionHandling();
+
+        $readingSession = factory(ReadingSession::class)->create();
+
+        $response = $this->patchJson('api/books/1/sessions/1', ['start' => 50, 'end' => 75]);
+
+        $response
+            ->assertStatus(200)
+            ->assertJsonFragment(['start' => 50, 'end' => 75]);
     }
 }
