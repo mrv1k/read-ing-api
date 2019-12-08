@@ -42,11 +42,12 @@ class ReadingSessionsController extends Controller
      * @param  \App\Models\ReadingSession  $readingSession
      * @return \Illuminate\Http\Response
      */
-    public function show($bookId, $readingSessionId)
+    public function show($bookId, ReadingSession $readingSession)
     {
+        // dd($bookId, $readingSessionId, $readingSession);
         // TODO: Refactor to back to use laravel typecast fetching
-        $t = ReadingSession::findOrFail($readingSessionId);
-        return new ReadingSessionResource($t);
+        // $t = ReadingSession::findOrFail($readingSessionId);
+        return new ReadingSessionResource($readingSession);
     }
 
     /**
@@ -56,9 +57,10 @@ class ReadingSessionsController extends Controller
      * @param  \App\Models\ReadingSession  $readingSession
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $bookId, $readingSessionId)
+    // public function update(Request $request, $bookId, $readingSessionId)
+    public function update(Request $request, $bookId, ReadingSession $readingSession)
     {
-        $readingSession = ReadingSession::findOrFail($readingSessionId);
+        // $readingSession = ReadingSession::findOrFail($readingSessionId);
 
         $readingSession->update($request->only(['start', 'end']));
 
@@ -71,7 +73,7 @@ class ReadingSessionsController extends Controller
      * @param  \App\Models\ReadingSession  $readingSession
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ReadingSession $readingSession)
+    public function destroy($bookId, ReadingSession $readingSession)
     {
         $readingSession->delete();
 
