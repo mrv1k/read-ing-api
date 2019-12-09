@@ -25,7 +25,7 @@ class ReadingSessionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($bookId, Request $request)
+    public function store(Request $request, $bookId)
     {
         $readingSession = ReadingSession::create([
             'start' => $request->start,
@@ -43,10 +43,12 @@ class ReadingSessionsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($bookId, ReadingSession $readingSession)
+    // public function show($bookId, $readingSession)
     {
-        // dd($bookId, $readingSessionId, $readingSession);
-        // TODO: Refactor to back to use laravel typecast fetching
-        // $t = ReadingSession::findOrFail($readingSessionId);
+        // dd($book, $readingSession);
+        // // TODO: Refactor to back to use laravel typecast fetching
+        // $t = ReadingSession::findOrFail($readingSession);
+        // return new ReadingSessionResource($t);
         return new ReadingSessionResource($readingSession);
     }
 

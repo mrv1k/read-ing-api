@@ -13,6 +13,13 @@ class ReadingSession extends Model
         'end' => 'integer',
     ];
 
+    // protected static function boot()
+    // {
+    //     parent::boot();
+
+    //     dd('derp');
+    // }
+
     public function getPagesReadAttribute()
     {
         return $this->end - $this->start;
@@ -20,6 +27,8 @@ class ReadingSession extends Model
 
     public function getBookReadAttribute($value)
     {
+        dd($value, $this->end, $this->book, $this['book']);
+
         $num = ceil(($this->end / $this->book->pages) * 100);
 
         return $num . '%';

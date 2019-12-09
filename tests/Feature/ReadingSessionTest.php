@@ -55,9 +55,13 @@ class ReadingSessionTest extends TestCase
     {
         $this->actingAs(factory(User::class)->create());
 
-        // $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
 
-        $readingSession = factory(ReadingSession::class)->create();
+        // FIXME: remove
+        $book = factory(Book::class)->create();
+        factory(ReadingSession::class)->create(['book_id' => $book->id, 'start' => 1]);
+
+        // $readingSession = factory(ReadingSession::class)->create();
 
         $response = $this->getJson('api/books/1/sessions/1');
 
