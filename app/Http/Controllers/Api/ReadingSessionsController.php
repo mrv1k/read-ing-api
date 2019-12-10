@@ -42,13 +42,11 @@ class ReadingSessionsController extends Controller
      * @param  \App\Models\ReadingSession  $readingSession
      * @return \Illuminate\Http\Response
      */
-    public function show($bookId, ReadingSession $readingSession)
-    // public function show($bookId, $readingSession)
+    public function show($bookId, $readingSession)
     {
-        // dd($book, $readingSession);
-        // // TODO: Refactor to back to use laravel typecast fetching
-        // $t = ReadingSession::findOrFail($readingSession);
-        // return new ReadingSessionResource($t);
+        // TODO: typehinting reading session breaks
+        $readingSession = ReadingSession::findOrFail($readingSession);
+
         return new ReadingSessionResource($readingSession);
     }
 
@@ -59,10 +57,9 @@ class ReadingSessionsController extends Controller
      * @param  \App\Models\ReadingSession  $readingSession
      * @return \Illuminate\Http\Response
      */
-    // public function update(Request $request, $bookId, $readingSessionId)
-    public function update(Request $request, $bookId, ReadingSession $readingSession)
+    public function update(Request $request, $bookId, $readingSessionId)
     {
-        // $readingSession = ReadingSession::findOrFail($readingSessionId);
+        $readingSession = ReadingSession::findOrFail($readingSessionId);
 
         $readingSession->update($request->only(['start', 'end']));
 

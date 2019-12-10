@@ -41,27 +41,13 @@ class ReadingSessionTest extends TestCase
         $response->assertJsonFragment($payload);
     }
 
-    public function testUserCanDeleteAReadingSession()
-    {
-        $this->actingAs(factory(User::class)->create());
-
-        $readingSession = factory(ReadingSession::class)->create();
-
-        $this->deleteJson('api/books/1/sessions/1')
-            ->assertStatus(204);
-    }
-
     public function testUserCanRetriveASingleReadingSession()
     {
         $this->actingAs(factory(User::class)->create());
 
         $this->withoutExceptionHandling();
 
-        // FIXME: remove
-        $book = factory(Book::class)->create();
-        factory(ReadingSession::class)->create(['book_id' => $book->id, 'start' => 1]);
-
-        // $readingSession = factory(ReadingSession::class)->create();
+        factory(ReadingSession::class)->create();
 
         $response = $this->getJson('api/books/1/sessions/1');
 
@@ -74,12 +60,22 @@ class ReadingSessionTest extends TestCase
 
         $this->withoutExceptionHandling();
 
-        $readingSession = factory(ReadingSession::class)->create();
+        factory(ReadingSession::class)->create();
 
         $response = $this->patchJson('api/books/1/sessions/1', ['start' => 50, 'end' => 75]);
 
         $response
             ->assertStatus(200)
             ->assertJsonFragment(['start' => 50, 'end' => 75]);
+    }
+
+    public function testUserCanDeleteAReadingSession()
+    {
+        $this->actingAs(factory(User::class)->create());
+
+        factory(ReadingSession::class)->create();
+
+        $this->deleteJson('api/books/1/sessions/1')
+            ->assertStatus(204);
     }
 }
